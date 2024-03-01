@@ -1,0 +1,50 @@
+﻿@model GenerateurCodes.MVC.Models.DemandeCodeAcces
+
+@{
+    ViewData["Title"] = "ObtenirCode";
+}
+
+<h1>Demande d'un code d'accès</h1>
+
+<h4>Veuillez remplir tous les champs</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        
+        <p class="text-success">@ViewBag.Resultat</p>
+       
+        <form asp-action="ObtenirCode">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomDemandeur" class="control-label"></label>
+                <input asp-for="NomDemandeur" class="form-control" />
+                <span asp-validation-for="NomDemandeur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateNaissanceDemandeur" class="control-label"></label>
+                <input asp-for="DateNaissanceDemandeur" type="date" class="form-control" />
+                <span asp-validation-for="DateNaissanceDemandeur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NAS" class="control-label"></label>
+                <input asp-for="NAS" class="form-control" />
+                <span asp-validation-for="NAS" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="RaisonDemande" class="control-label"></label>
+                <textarea asp-for="RaisonDemande"></textarea>
+                <span asp-validation-for="RaisonDemande" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Envoyer la demande" class="btn btn-primary" />
+                <a asp-controller="GenerateurCodes" asp-action="Index">Retourner au menu</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

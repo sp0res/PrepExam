@@ -1,0 +1,33 @@
+﻿
+
+@{
+    ViewData["Title"] = "Valider Code";
+}
+
+<h1>Valider Code d'accès</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+         <p class="text-success">@ViewBag.Message</p>
+        <form asp-action="ValiderCode">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Entrer votre nom</label>
+                <input type="text" name="nom" id="nom" required class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Entrer votre code</label>
+                <input type="text" name="code" id="code" required  class="form-control" /> 
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Valider le code" class="btn btn-primary" />
+                <a asp-controller="GenerateurCodes" asp-action="Index">Retourner au menu</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

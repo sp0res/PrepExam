@@ -1,0 +1,55 @@
+﻿@model IEnumerable<GenerateurCodes.MVC.Models.DemandeCodeAcces>
+
+@{
+    ViewData["Title"] = "ListerDemandes";
+}
+
+<h1>Demandes de code d'accès</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomDemandeur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateNaissanceDemandeur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NAS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaisonDemande)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.Raw(item.Id)
+            </td>
+            <td>
+                @Html.Raw(item.NomDemandeur)
+            </td>
+            <td>
+                    @Html.Raw(item.DateNaissanceDemandeur)
+            </td>
+            <td>
+                    @Html.Raw(item.NAS)
+            </td>
+            <td>
+                    @Html.Raw(item.RaisonDemande)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
+<p>
+    <a asp-controller="GenerateurCodes" asp-action="Index">Retourner au menu</a>
+</p>
