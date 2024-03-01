@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(d => new DataContext(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDataProtection();
 
 var app = builder.Build();
 

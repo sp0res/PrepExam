@@ -1,6 +1,7 @@
 ﻿using GenerateurCodes.MVC.Data;
 using GenerateurCodes.MVC.Interfaces;
 using GenerateurCodes.MVC.Models;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,14 @@ namespace GenerateurCodes.MVC.Controllers
     {
         private readonly DataContext _context;
 
-        public GenerateurCodesController(DataContext context)
+        private readonly IDataProtector _dataProtector;
+
+        public GenerateurCodesController(DataContext context,
+            IDataProtectionProvider dataProtectionProvider)
         {
           _context = context;
+
+          _dataProtector = dataProtectionProvider.CreateProtector("generateurcode");
         }
         // GET: GenerateurCodesController
         public async Task<ActionResult> Index()
@@ -49,7 +55,7 @@ namespace GenerateurCodes.MVC.Controllers
                 {
                     DateExpiration = dateExpiration,
                     NomDemandeur = demandeCodeAcces.NomDemandeur,
-                    Code = code
+                    Code = _dataProtector.Protect(code)
                 });
 
 
@@ -72,7 +78,7 @@ namespace GenerateurCodes.MVC.Controllers
         {
             var codeAccess = await _context.ObtenirCodeAccess(nom);
 
-            if (codeAccess.Any(c => c.Code == code && c.DateExpiration >= DateTime.Now))
+            if (codeAccess.Any(c => _dataProtector.Unprotect(c.Code) == code && c.DateExpiration >= DateTime.Now))
                 ViewBag.Message = "Votre code est valide";
             else
                ViewBag.Message = "Les informations fournies ne permettent pas d'obtenir un code valide"; 

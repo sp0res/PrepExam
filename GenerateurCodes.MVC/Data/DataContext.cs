@@ -21,11 +21,14 @@ namespace GenerateurCodes.MVC.Data
             var cmd = new SQLiteCommand(_connection);
 
             cmd.CommandText = "INSERT INTO DemandeCodeAcces(NomDemandeur, DateNaissanceDemandeur," +
-                "NAS, RaisonDemande) VALUES('"+demandeCodeAcces.NomDemandeur+"','"+
-                demandeCodeAcces.DateNaissanceDemandeur + "','" +
-                demandeCodeAcces.NAS + "','"+demandeCodeAcces.RaisonDemande+"')";
+                "NAS, RaisonDemande) VALUES(@NomDemandeur,@DateNaissanceDemandeur,'111111111',@RaisonDemande)";
+            
+            
+            cmd.Parameters.AddWithValue("@NomDemandeur", demandeCodeAcces.NomDemandeur);
+			cmd.Parameters.AddWithValue("@DateNaissanceDemandeur",demandeCodeAcces.DateNaissanceDemandeur);
+			cmd.Parameters.AddWithValue("@RaisonDemande", demandeCodeAcces.RaisonDemande);
 
-            return cmd.ExecuteNonQueryAsync();
+			return cmd.ExecuteNonQueryAsync();
         }
 
         public Task InsererCodeAcces(CodeAcces codeAcces)
